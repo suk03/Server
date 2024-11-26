@@ -49,5 +49,22 @@
     "createdBy": "suk03",
     "createdAt": "2024-11-26T17:42:37.567Z",
     "updatedAt": "2024-11-26T17:42:37.567Z"
+  },
+  {
+    "id": 4,
+    "title": "Machine Learning Engineer",
+    "description": "Builds AI models and systems that can learn and make decisions from data.",
+    "companyName": "XYZ",
+    "location": "Delhi",
+    "domain": "Machine Learning",
+    "workType": "hybrid",
+    "employmentType": "internship",
+    "userType": "student",
+    "salaryRange": "$15000-$25000",
+    "applyLink": "",
+    "userId": 105532060,
+    "createdBy": "suk03",
+    "createdAt": "2024-11-26T17:48:00.570Z",
+    "updatedAt": "2024-11-26T17:48:00.570Z"
   }
 ]
