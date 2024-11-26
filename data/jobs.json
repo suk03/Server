@@ -1,0 +1,19 @@
+[
+  {
+    "id": 1,
+    "title": "Sales",
+    "description": "testing",
+    "companyName": "Ola",
+    "location": "Bangalore, Karnataka, IND",
+    "domain": "Machine Learning",
+    "workType": "onsite",
+    "employmentType": "part time",
+    "userType": "fresher",
+    "salaryRange": "NA",
+    "applyLink": "https://www.youtube.com",
+    "userId": 105532060,
+    "createdBy": "Sukrithi S",
+    "createdAt": "2024-11-26T08:56:30.212Z",
+    "updatedAt": "2024-11-26T08:56:30.212Z"
+  }
+]
