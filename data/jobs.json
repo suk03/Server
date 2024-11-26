@@ -15,5 +15,22 @@
     "createdBy": "Sukrithi S",
     "createdAt": "2024-11-26T08:56:30.212Z",
     "updatedAt": "2024-11-26T08:56:30.212Z"
+  },
+  {
+    "id": 2,
+    "title": "UI/UX Designer",
+    "description": "Designs user interfaces and experiences to make software and websites more user-friendly and visually appealing.",
+    "companyName": "Jio",
+    "location": "Bangalore",
+    "domain": "UI/UX",
+    "workType": "on site",
+    "employmentType": "part time",
+    "userType": "fresher",
+    "salaryRange": "$10000",
+    "applyLink": "",
+    "userId": 105532060,
+    "createdBy": "Sukrithi S",
+    "createdAt": "2024-11-26T17:37:26.111Z",
+    "updatedAt": "2024-11-26T17:37:26.111Z"
   }
 ]
