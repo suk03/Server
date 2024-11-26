@@ -21,6 +21,9 @@ const readJobsFromGithub = async () => {
         }
       }
     );
+
+
+    
     
     const content = Buffer.from(response.data.content, 'base64').toString();
     return JSON.parse(content);
