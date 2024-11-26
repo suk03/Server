@@ -32,5 +32,22 @@
     "createdBy": "Sukrithi S",
     "createdAt": "2024-11-26T17:37:26.111Z",
     "updatedAt": "2024-11-26T17:37:26.111Z"
+  },
+  {
+    "id": 3,
+    "title": "IT Project Manager",
+    "description": "Plans, executes, and oversees IT projects, ensuring they are delivered on time and within budget.",
+    "companyName": "Myntra",
+    "location": "Mumbai",
+    "domain": "DevOps",
+    "workType": "on site",
+    "employmentType": "full time",
+    "userType": "professional",
+    "salaryRange": "$20000-$30000",
+    "applyLink": "",
+    "userId": 105532060,
+    "createdBy": "suk03",
+    "createdAt": "2024-11-26T17:42:37.567Z",
+    "updatedAt": "2024-11-26T17:42:37.567Z"
   }
 ]
