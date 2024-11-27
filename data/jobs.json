@@ -100,5 +100,22 @@
     "createdBy": "suk03",
     "createdAt": "2024-11-27T14:19:49.148Z",
     "updatedAt": "2024-11-27T14:19:49.148Z"
+  },
+  {
+    "id": 7,
+    "title": "Tester",
+    "description": "Test codes",
+    "companyName": "HPE",
+    "location": "Mumbai",
+    "domain": "Testing",
+    "workType": "on site",
+    "employmentType": "part time",
+    "userType": "student",
+    "salaryRange": "$5000",
+    "applyLink": "",
+    "userId": 105532060,
+    "createdBy": "suk03",
+    "createdAt": "2024-11-27T14:31:13.591Z",
+    "updatedAt": "2024-11-27T14:31:13.616Z"
   }
 ]
