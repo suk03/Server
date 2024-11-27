@@ -66,5 +66,22 @@
     "createdBy": "suk03",
     "createdAt": "2024-11-26T17:48:00.570Z",
     "updatedAt": "2024-11-26T17:48:00.570Z"
+  },
+  {
+    "id": 5,
+    "title": "Backend Java Developer",
+    "description": "Develop java applications",
+    "companyName": "CGI",
+    "location": "Kochi",
+    "domain": "Backend",
+    "workType": "on site",
+    "employmentType": "full time",
+    "userType": "professional",
+    "salaryRange": "$30000-$40000",
+    "applyLink": "",
+    "userId": 105532060,
+    "createdBy": "suk03",
+    "createdAt": "2024-11-27T13:46:24.315Z",
+    "updatedAt": "2024-11-27T13:46:24.315Z"
   }
 ]
