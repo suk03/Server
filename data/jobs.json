@@ -83,5 +83,22 @@
     "createdBy": "suk03",
     "createdAt": "2024-11-27T13:46:24.315Z",
     "updatedAt": "2024-11-27T13:46:24.315Z"
+  },
+  {
+    "id": 6,
+    "title": "testing",
+    "description": "tester",
+    "companyName": "HP",
+    "location": "Chennai",
+    "domain": "",
+    "workType": "",
+    "employmentType": "full time",
+    "userType": "fresher",
+    "salaryRange": "",
+    "applyLink": "",
+    "userId": 105532060,
+    "createdBy": "suk03",
+    "createdAt": "2024-11-27T14:19:49.148Z",
+    "updatedAt": "2024-11-27T14:19:49.148Z"
   }
 ]
