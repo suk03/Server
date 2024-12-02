@@ -117,5 +117,22 @@
     "createdBy": "suk03",
     "createdAt": "2024-11-27T14:31:13.591Z",
     "updatedAt": "2024-11-27T14:31:13.616Z"
+  },
+  {
+    "id": 8,
+    "title": "AI intern",
+    "description": "We are looking for an enthusiastic AI Intern to join our rapidly growing global team! This role offers unparalleled growth potential, flexible hours, exciting opportunities with guaranteed income to work on groundbreaking AI solutions that will revolutionize the industry.",
+    "companyName": "PQR",
+    "location": "Delhi",
+    "domain": "AI Intern",
+    "workType": "on site",
+    "employmentType": "internship",
+    "userType": "student",
+    "salaryRange": "$10000-$90000",
+    "applyLink": "",
+    "userId": 105532060,
+    "createdBy": "suk03",
+    "createdAt": "2024-12-02T14:49:01.859Z",
+    "updatedAt": "2024-12-02T14:49:01.859Z"
   }
 ]
