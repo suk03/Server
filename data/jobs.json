@@ -134,5 +134,22 @@
     "createdBy": "suk03",
     "createdAt": "2024-12-02T14:49:01.859Z",
     "updatedAt": "2024-12-02T14:49:01.859Z"
+  },
+  {
+    "id": 9,
+    "title": "Game Developer",
+    "description": "A work from home opportunity where you can be your own boss with unlimited earning potential. It is an effective way to make quick money'",
+    "companyName": "HPE",
+    "location": "Hydrabad",
+    "domain": "Game Developer",
+    "workType": "remote",
+    "employmentType": "full time",
+    "userType": "professional",
+    "salaryRange": "2000-80000",
+    "applyLink": "",
+    "userId": 105532060,
+    "createdBy": "suk03",
+    "createdAt": "2024-12-02T15:37:32.104Z",
+    "updatedAt": "2024-12-02T15:37:32.104Z"
   }
 ]
