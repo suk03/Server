@@ -64,7 +64,7 @@ const updateGithubJobs = async (jobs) => {
           Accept: 'application/vnd.github.v3+json'
         }
       }
-    );
+    ); 
 
     return true;
   } catch (error) {
