@@ -66,7 +66,7 @@ const updateGithubJobs = async (jobs) => {
       }
     ); 
 
-    return true;
+    return true; 
   } catch (error) {
     console.error('Error updating GitHub repository:', error);
     throw error;
