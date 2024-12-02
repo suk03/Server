@@ -23,7 +23,7 @@ const readJobsFromGithub = async () => {
     );
 
 
-    
+
     
     const content = Buffer.from(response.data.content, 'base64').toString();
     return JSON.parse(content);
@@ -337,6 +337,8 @@ app.use((err, req, res, next) => {
     details: process.env.NODE_ENV === 'development' ? err.message : undefined
   });
 });
+
+
  
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
