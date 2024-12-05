@@ -151,5 +151,22 @@
     "createdBy": "suk03",
     "createdAt": "2024-12-02T15:37:32.104Z",
     "updatedAt": "2024-12-02T15:37:32.104Z"
+  },
+  {
+    "id": 10,
+    "title": " Data Entry Specialist",
+    "description": "We are seeking enthusiastic individuals to join our team as Remote Data Entry Specialists. This is a unique opportunity to work from the comfort of your home with flexible hours and no prior experience required! Your primary responsibility will be to input data into our secure online system. Full training will be provided, and you can start earning immediately.",
+    "companyName": "IOU",
+    "location": "Bangalore",
+    "domain": "Data",
+    "workType": "remote",
+    "employmentType": "part time",
+    "userType": "fresher",
+    "salaryRange": "$10000-$60000",
+    "applyLink": "",
+    "userId": 105532060,
+    "createdBy": "suk03",
+    "createdAt": "2024-12-05T16:00:56.232Z",
+    "updatedAt": "2024-12-05T16:00:56.232Z"
   }
 ]
