@@ -45,7 +45,7 @@ const updateGithubJobs = async (jobs) => {
           Accept: 'application/vnd.github.v3+json'
         }
       }
-    );
+    ); 
 
     // Convert the updated jobs array to a Base64 string
     const updatedContent = Buffer.from(JSON.stringify(jobs, null, 2)).toString('base64');
