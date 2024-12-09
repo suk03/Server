@@ -168,5 +168,22 @@
     "createdBy": "suk03",
     "createdAt": "2024-12-05T16:00:56.232Z",
     "updatedAt": "2024-12-05T16:00:56.232Z"
+  },
+  {
+    "id": 11,
+    "title": "Administrative Assistant",
+    "description": "oin our team today as a Remote Administrative Assistant! This is an exclusive opportunity to work with high-profile clients while earning top-tier income from the comfort of your own home. No experience? No problem! We provide all the training and tools you need to succeed.",
+    "companyName": "YUI",
+    "location": "Salem",
+    "domain": "Data",
+    "workType": "on site",
+    "employmentType": "full time",
+    "userType": "professional",
+    "salaryRange": "40000-80000",
+    "applyLink": "https://reva-university.my.site.com/StudentPortal/s/attendance",
+    "userId": 105532060,
+    "createdBy": "suk03",
+    "createdAt": "2024-12-09T14:46:25.203Z",
+    "updatedAt": "2024-12-09T14:46:25.203Z"
   }
-]   
+]
