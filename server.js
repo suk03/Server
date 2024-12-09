@@ -336,7 +336,8 @@ app.use((err, req, res, next) => {
     error: 'Internal server error',
     details: process.env.NODE_ENV === 'development' ? err.message : undefined
   });
-}); 
+});   
+
 
 
  
