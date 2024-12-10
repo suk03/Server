@@ -185,5 +185,22 @@
     "createdBy": "suk03",
     "createdAt": "2024-12-09T14:46:25.203Z",
     "updatedAt": "2024-12-09T14:46:25.203Z"
+  },
+  {
+    "id": 12,
+    "title": "Machine Learning Intern",
+    "description": "We are excited to offer a unique opportunity for aspiring machine learning enthusiasts to join our team as an intern. This flexible, remote position is perfect for those looking to gain hands-on experience in the AI industry while earning money from the comfort of their own home. No prior experience is required as we provide all the training you’ll need!",
+    "companyName": "oppo",
+    "location": "delhi",
+    "domain": "Machine Learning",
+    "workType": "on site",
+    "employmentType": "internship",
+    "userType": "fresher",
+    "salaryRange": "20000-70000",
+    "applyLink": "",
+    "userId": 105532060,
+    "createdBy": "Sukrithi S",
+    "createdAt": "2024-12-10T07:36:03.770Z",
+    "updatedAt": "2024-12-10T07:36:03.770Z"
   }
 ]
