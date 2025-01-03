@@ -4,10 +4,112 @@ const jwt = require('jsonwebtoken');
 const axios = require('axios');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
+const { GoogleGenerativeAI } = require('@google/generative-ai');
+const puppeteer = require('puppeteer');
+const cheerio = require('cheerio');
 require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 3001;
+
+// Initialize Google AI
+const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
+
+// Function to scrape and summarize career page
+async function scrapeAndSummarizeCareerPage(url) {
+  try {
+    if (!url || !url.startsWith('http')) {
+      console.error('Invalid URL provided');
+      return null;
+    }
+
+    console.log('Starting to scrape:', url);
+    
+    // Fetch the page content
+    const response = await axios.get(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+      }
+    });
+
+    // Load the HTML content into cheerio
+    const $ = cheerio.load(response.data);
+
+    // Remove unwanted elements
+    $('script, style, nav, header, footer, iframe, noscript').remove();
+
+    // Extract text from main content areas
+    const mainContent = $('main, article, .content, .main-content, #content, #main-content')
+      .text()
+      .trim();
+
+    // If no main content found, get body text
+    const bodyContent = mainContent || $('body').text().trim();
+
+    // Clean the text
+    const cleanedText = bodyContent
+      .replace(/\s+/g, ' ')
+      .replace(/\n+/g, ' ')
+      .trim();
+
+    if (!cleanedText || cleanedText.length < 50) {
+      console.error('Insufficient content extracted from page');
+      return null;
+    }
+
+    // Use Google Gemini to summarize
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const prompt = `Analyze and summarize the following company career/about page content. Focus on these key aspects:
+
+1. Company Overview: What does the company do and what is their mission?
+2. Company Culture and Values: What are their core values and workplace culture?
+3. Growth and Development: What opportunities exist for career growth?
+4. Benefits and Perks: What do they offer employees?
+
+Please provide a professional, concise summary in 3-4 paragraphs. If any information is missing, focus on what is available.
+
+Content to analyze: ${cleanedText.substring(0, 5000)}`; // Limit text length
+    
+    const result = await model.generateContent(prompt);
+    const summary = result.response.text();
+    
+    if (!summary) {
+      console.error('Failed to generate summary');
+      return null;
+    }
+
+    console.log('Successfully generated summary');
+    return summary;
+
+  } catch (error) {
+    console.error('Error in scrapeAndSummarizeCareerPage:', error);
+    return null;
+  }
+}
+
+// Function to detect spam job posting
+async function detectSpamJob(jobDetails) {
+  try {
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const prompt = `Analyze this job posting for potential spam indicators. Consider:
+    1. Unrealistic salary promises
+    2. Vague job descriptions
+    3. Suspicious requirements
+    4. Poor grammar or unprofessional language
+    5. Requests for personal/financial information
+    
+    Job details: ${JSON.stringify(jobDetails)}
+    
+    Return only "true" if likely spam or "false" if likely legitimate.`;
+    
+    const result = await model.generateContent(prompt);
+    return result.response.text().trim().toLowerCase() === 'true';
+  } catch (error) {
+    console.error('Error detecting spam:', error);
+    return false;
+  }
+}
+
 
 // Helper function to read jobs from GitHub
 const readJobsFromGithub = async () => {
@@ -63,10 +165,12 @@ const updateGithubJobs = async (jobs) => {
         headers: {
           Authorization: `token ${process.env.GITHUB_ACCESS_TOKEN}`,
           Accept: 'application/vnd.github.v3+json'
-        }
+        },
+        maxContentLength: Infinity,
+        maxBodyLength: Infinity
       }
     ); 
-
+    console.log('GitHub update successful');
     return true; 
   } catch (error) {
     console.error('Error updating GitHub repository:', error);
@@ -93,7 +197,8 @@ app.use(cors({
   origin: process.env.CLIENT_URL || 'https://github-login-mocha.vercel.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
+  credentials: true,
+  exposedHeaders: ['Set-Cookie']
 }));
 
 app.use(express.json());
@@ -208,6 +313,28 @@ app.post('/api/jobs', authenticateToken, async (req, res) => {
       });
     }
 
+
+    
+    // Scrape and summarize career page if URL is provided
+    let companySummary = null;
+    if (careerLink) {
+      console.log('Attempting to scrape career page:', careerLink);
+      companySummary = await scrapeAndSummarizeCareerPage(careerLink);
+      if (!companySummary) {
+        console.log('Failed to generate company summary');
+      } else {
+        console.log('Company summary generated successfully');
+      }
+    }
+
+    // Check for spam
+    const isSpam = await detectSpamJob({
+      title,
+      description,
+      companyName,
+      salaryRange
+    });
+
     // Read current jobs
     const jobs = await readJobsFromGithub();
 
@@ -224,6 +351,9 @@ app.post('/api/jobs', authenticateToken, async (req, res) => {
       userType,
       salaryRange,
       applyLink,
+      careerLink,
+      companySummary: companySummary || null,
+      isSpam,
       userId: userId || req.user.userId,
       createdBy: createdBy || req.user.username,
       createdAt: new Date().toISOString(),
@@ -250,80 +380,54 @@ app.post('/api/jobs', authenticateToken, async (req, res) => {
   }
 });
 
-// Update existing job
-app.put('/api/jobs/:id', authenticateToken, async (req, res) => {
+// Public jobs endpoint (no auth required)
+app.get('/api/public/jobs', async (req, res) => {
   try {
-    const jobId = parseInt(req.params.id);
     const jobs = await readJobsFromGithub();
-    
-    const jobIndex = jobs.findIndex(job => job.id === jobId);
-    
-    if (jobIndex === -1) {
-      return res.status(404).json({ error: 'Job not found' });
-    }
-
-    // Verify user owns this job
-    if (jobs[jobIndex].userId !== req.user.userId) {
-      return res.status(403).json({ error: 'Not authorized to update this job' });
-    }
-
-    // Update job with new data while preserving existing fields
-    const updatedJob = {
-      ...jobs[jobIndex],
-      ...req.body,
-      updatedAt: new Date().toISOString()
-    };
-
-    jobs[jobIndex] = updatedJob;
-    
-    await updateGithubJobs(jobs);
-    
-    res.json({
-      message: 'Job updated successfully',
-      job: updatedJob
-    });
+    res.json(jobs);
   } catch (error) {
-    console.error('Error updating job:', error);
-    res.status(500).json({ 
-      error: 'Failed to update job',
-      details: error.message 
-    });
+    console.error('Error reading jobs:', error);
+    res.status(500).json({ error: 'Failed to fetch jobs' });
   }
 });
 
-// Delete job
-app.delete('/api/jobs/:id', authenticateToken, async (req, res) => {
+
+// Get all jobs endpoint
+app.get('/api/jobs', authenticateToken, async (req, res) => {
   try {
-    const jobId = parseInt(req.params.id);
     const jobs = await readJobsFromGithub();
-    
-    const jobIndex = jobs.findIndex(job => job.id === jobId);
-    
-    if (jobIndex === -1) {
-      return res.status(404).json({ error: 'Job not found' });
-    }
+    const userId = req.query.userId;
 
-    // Verify user owns this job
-    if (jobs[jobIndex].userId !== req.user.userId) {
-      return res.status(403).json({ error: 'Not authorized to delete this job' });
+    if (userId) {
+      // Convert both IDs to strings for comparison
+      const userJobs = jobs.filter(job => String(job.userId) === String(userId));
+      res.json(userJobs);
+    } else {
+      res.json(jobs);
     }
-
-    // Remove the job
-    jobs.splice(jobIndex, 1);
-    
-    await updateGithubJobs(jobs);
-    
-    res.json({
-      message: 'Job deleted successfully'
-    });
   } catch (error) {
-    console.error('Error deleting job:', error);
-    res.status(500).json({ 
-      error: 'Failed to delete job',
-      details: error.message 
-    });
+    console.error('Error reading jobs:', error);
+    res.status(500).json({ error: 'Failed to fetch jobs' });
   }
 });
+
+// Get single job endpoint
+app.get('/api/jobs/:id', async (req, res) => {
+  try {
+    const jobs = await readJobsFromGithub();
+    const job = jobs.find(job => job.id === parseInt(req.params.id));
+    
+    if (!job) {
+      return res.status(404).json({ error: 'Job not found' });
+    }
+    
+    res.json(job);
+  } catch (error) {
+    console.error('Error fetching job:', error);
+    res.status(500).json({ error: 'Failed to fetch job' });
+  }
+});
+
 
 // Health check endpoint
 app.get('/health', (req, res) => {
