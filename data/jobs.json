@@ -202,5 +202,22 @@
     "createdBy": "Sukrithi S",
     "createdAt": "2024-12-10T07:36:03.770Z",
     "updatedAt": "2024-12-10T07:36:03.770Z"
+  },
+  {
+    "id": 13,
+    "title": "Test",
+    "description": "Testning",
+    "companyName": "JIM",
+    "location": "Noida",
+    "domain": "Game Developer",
+    "workType": "hybrid",
+    "employmentType": "part time",
+    "userType": "student",
+    "salaryRange": "20000-25000",
+    "applyLink": "https://www.jetbrains.com/idea/download/download-thanks.html?platform=windows&code=IIC",
+    "userId": 105532060,
+    "createdBy": "suk03",
+    "createdAt": "2025-01-03T10:10:55.690Z",
+    "updatedAt": "2025-01-03T10:10:55.690Z"
   }
-] 
+]
